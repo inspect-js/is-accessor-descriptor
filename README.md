@@ -13,15 +13,15 @@ $ npm i is-accessor-descriptor --save
 ## Usage
 
 ```js
-var isAccessorDescriptor = require('is-accessor-descriptor');
+var isAccessor = require('is-accessor-descriptor');
 ```
 
 ### false when not an object
 
 ```js
-isAccessorDescriptor('a');
-isAccessorDescriptor(null);
-isAccessorDescriptor([]);
+isAccessor('a')
+isAccessor(null)
+isAccessor([])
 //=> false
 ```
 
@@ -30,43 +30,44 @@ isAccessorDescriptor([]);
 and the properties all have the correct JavaScript types:
 
 ```js
-isAccessorDescriptor({get: noop, set: noop});
-isAccessorDescriptor({get: noop});
-isAccessorDescriptor({set: noop});
+isAccessor({get: noop, set: noop})
+isAccessor({get: noop})
+isAccessor({set: noop})
 //=> true
 ```
 
 ### false when the object has invalid properties
 
 ```js
-isAccessorDescriptor({get: noop, set: noop, bar: 'baz'});
-isAccessorDescriptor({get: noop, writable: true});
-isAccessorDescriptor({get: noop, value: true});
+isAccessor({get: noop, set: noop, bar: 'baz'})
+isAccessor({get: noop, writable: true})
+isAccessor({get: noop, value: true})
 //=> false
 ```
 
 ### false when an accessor is not a function
 
 ```js
-isAccessorDescriptor({get: noop, set: 'baz'});
-isAccessorDescriptor({get: 'foo', set: noop});
-isAccessorDescriptor({get: 'foo', bar: 'baz'});
-isAccessorDescriptor({get: 'foo', set: 'baz'});
+isAccessor({get: noop, set: 'baz'})
+isAccessor({get: 'foo', set: noop})
+isAccessor({get: 'foo', bar: 'baz'})
+isAccessor({get: 'foo', set: 'baz'})
 //=> false
 ```
 
 ### false when a value is not the correct type
 
 ```js
-isAccessorDescriptor({get: noop, set: noop, enumerable: 'foo'});
-isAccessorDescriptor({set: noop, configurable: 'foo'});
-isAccessorDescriptor({get: noop, configurable: 'foo'});
+isAccessor({get: noop, set: noop, enumerable: 'foo'})
+isAccessor({set: noop, configurable: 'foo'})
+isAccessor({get: noop, configurable: 'foo'})
 //=> false
 ```
 
 ## Related projects
 
-* [arr-diff](https://www.npmjs.com/package/arr-diff): Returns an array with only the unique values from the first array, by excluding all… [more](https://www.npmjs.com/package/arr-diff) | [homepage](https://github.com/jonschlinkert/arr-diff)
+* [is-data-descriptor](https://www.npmjs.com/package/is-data-descriptor): Returns true if a value appears to be a valid JavaScript data descriptor. | [homepage](https://github.com/jonschlinkert/is-data-descriptor)
+* [is-descriptor](https://www.npmjs.com/package/is-descriptor): Returns true if a value has the characteristics of a valid JavaScript descriptor. Works for… [more](https://www.npmjs.com/package/is-descriptor) | [homepage](https://github.com/jonschlinkert/is-descriptor)
 * [isobject](https://www.npmjs.com/package/isobject): Returns true if the value is an object and not an array or null. | [homepage](https://github.com/jonschlinkert/isobject)
 
 ## Running tests
