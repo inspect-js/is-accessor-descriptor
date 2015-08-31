@@ -1,6 +1,6 @@
 # is-accessor-descriptor [![NPM version](https://badge.fury.io/js/is-accessor-descriptor.svg)](http://badge.fury.io/js/is-accessor-descriptor)
 
-> Returns true if a value is a valid JavaScript accessor descriptor.
+> Returns true if a value has the characteristics of a valid JavaScript accessor descriptor.
 
 ## Install
 
