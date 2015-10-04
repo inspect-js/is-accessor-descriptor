@@ -7,8 +7,7 @@
 
 'use strict';
 
-var diff = require('arr-diff');
-var typeOf = require('kind-of');
+var utils = require('./utils');
 
 // accessor descriptor properties
 var accessor = {
@@ -19,7 +18,7 @@ var accessor = {
 };
 
 function isAccessorDescriptor(obj) {
-  if (typeOf(obj) !== 'object') {
+  if (utils.typeOf(obj) !== 'object') {
     return false;
   }
 
@@ -27,24 +26,24 @@ function isAccessorDescriptor(obj) {
   var keys = getKeys(obj);
 
   if (obj.hasOwnProperty('set')) {
-    if (typeOf(obj.set) !== 'function') {
+    if (utils.typeOf(obj.set) !== 'function') {
       return false;
     }
   }
 
   if (obj.hasOwnProperty('get')) {
-    if (typeOf(obj.get) !== 'function') {
+    if (utils.typeOf(obj.get) !== 'function') {
       return false;
     }
   }
 
-  if (diff(keys, accessorKeys).length !== 0) {
+  if (utils.diff(keys, accessorKeys).length !== 0) {
     return false;
   }
 
   for (var key in obj) {
     if (key === 'value') continue;
-    if (typeOf(obj[key]) !== accessor[key]) {
+    if (utils.typeOf(obj[key]) !== accessor[key]) {
       return false;
     }
   }
