@@ -26,6 +26,15 @@ $ npm i is-accessor-descriptor --save
 
 ```js
 var isAccessor = require('is-accessor-descriptor');
+
+isAccessor({get: function() {}});
+//=> true
+```
+
+You may also pass an object and property name to check if the property is an accessor:
+
+```js
+isAccessor(foo, 'bar');
 ```
 
 ## Examples
