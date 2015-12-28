@@ -7,7 +7,7 @@
 
 'use strict';
 
-var utils = require('./utils');
+var typeOf = require('kind-of');
 
 // accessor descriptor properties
 var accessor = {
@@ -17,48 +17,49 @@ var accessor = {
   enumerable: 'boolean'
 };
 
-function isAccessorDescriptor(obj) {
-  if (utils.typeOf(obj) !== 'object') {
+function isAccessorDescriptor(obj, prop) {
+  if (typeof prop === 'string') {
+    var val = Object.getOwnPropertyDescriptor(obj, prop);
+    return typeof val !== 'undefined';
+  }
+
+  if (typeOf(obj) !== 'object') {
     return false;
   }
 
-  var accessorKeys = Object.keys(accessor);
-  var keys = getKeys(obj);
-
-  if (obj.hasOwnProperty('set')) {
-    if (utils.typeOf(obj.set) !== 'function') {
-      return false;
-    }
+  if (has(obj, 'value') || has(obj, 'writable')) {
+    return false;
   }
 
-  if (obj.hasOwnProperty('get')) {
-    if (utils.typeOf(obj.get) !== 'function') {
-      return false;
-    }
+  if (!has(obj, 'get') || typeof obj.get !== 'function') {
+    return false;
   }
 
-  if (utils.diff(keys, accessorKeys).length !== 0) {
+  // tldr: it's valid to have "set" be undefined
+  // "set" might be undefined if `Object.getOwnPropertyDescriptor`
+  // was used to get the value, and only `get` was defined by the user
+  if (has(obj, 'set') && typeof obj[key] !== 'function' && typeof obj[key] !== 'undefined') {
     return false;
   }
 
   for (var key in obj) {
-    if (key === 'value') continue;
-    if (utils.typeOf(obj[key]) !== accessor[key]) {
+    if (!accessor.hasOwnProperty(key)) {
+      continue;
+    }
+
+    if (typeOf(obj[key]) === accessor[key]) {
+      continue;
+    }
+
+    if (typeof obj[key] !== 'undefined') {
       return false;
     }
   }
   return true;
 }
 
-/**
- * Get object keys. `Object.keys()` only gets
- * enumerable properties.
- */
-
-function getKeys(obj) {
-  var keys = [];
-  for (var key in obj) keys.push(key);
-  return keys;
+function has(obj, key) {
+  return {}.hasOwnProperty.call(obj, key);
 }
 
 /**
