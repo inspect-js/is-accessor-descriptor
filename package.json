@@ -4,6 +4,10 @@
   "version": "0.1.6",
   "homepage": "https://github.com/jonschlinkert/is-accessor-descriptor",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "contributors": [
+    "Jon Schlinkert (http://twitter.com/jonschlinkert)",
+    "Rouven Weßling (www.rouvenwessling.de)"
+  ],
   "repository": "jonschlinkert/is-accessor-descriptor",
   "bugs": {
     "url": "https://github.com/jonschlinkert/is-accessor-descriptor/issues"
