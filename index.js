@@ -9,57 +9,59 @@
 
 var typeOf = require('kind-of');
 
-// accessor descriptor properties
-var accessor = {
-  get: 'function',
-  set: 'function',
-  configurable: 'boolean',
-  enumerable: 'boolean'
-};
-
-function isAccessorDescriptor(obj, prop) {
+function isAccessorDescriptor(obj, prop, checkProto) {
+  if (typeof prop === 'boolean') {
+    checkProto = prop;
+    prop = null;
+  }
   if (typeof prop === 'string') {
-    var val = Object.getOwnPropertyDescriptor(obj, prop);
-    return typeof val !== 'undefined';
+    return isGetterSetter(obj, prop, checkProto);
   }
+  return looksLikeGetterSetter(obj);
+}
 
-  if (typeOf(obj) !== 'object') {
+function isGetterSetter(obj, key, checkProto) {
+  const descriptor = Object.getOwnPropertyDescriptor(obj, key);
+  if (descriptor) {
+    return looksLikeGetterSetter(descriptor);
+  }
+  if (checkProto !== false && obj.constructor && obj.constructor.prototype) {
+    return isGetterSetter(obj.constructor.prototype, key, false);
+  }
+  return false;
+}
+
+function looksLikeGetterSetter(descriptor) {
+  if (typeOf(descriptor) !== 'object') {
     return false;
   }
 
-  if (has(obj, 'value') || has(obj, 'writable')) {
-    return false;
-  }
+  const keys = Object.keys(descriptor);
+  const len = keys.length;
 
-  if (!has(obj, 'get') || typeof obj.get !== 'function') {
-    return false;
-  }
+  const validKeys = {
+    get: 'function',
+    set: 'function',
+    enumerable: 'boolean',
+    configurable: 'boolean'
+  };
 
-  // tldr: it's valid to have "set" be undefined
-  // "set" might be undefined if `Object.getOwnPropertyDescriptor`
-  // was used to get the value, and only `get` was defined by the user
-  if (has(obj, 'set') && typeof obj[key] !== 'function' && typeof obj[key] !== 'undefined') {
-    return false;
-  }
-
-  for (var key in obj) {
-    if (!accessor.hasOwnProperty(key)) {
-      continue;
+  if (len !== 4) return false;
+  for (let i = 0; i < len; i++) {
+    const key = keys[i];
+    if (!validKeys.hasOwnProperty(key)) {
+      return false;
     }
-
-    if (typeOf(obj[key]) === accessor[key]) {
-      continue;
-    }
-
-    if (typeof obj[key] !== 'undefined') {
+    const val = descriptor[key];
+    if (val != null && typeOf(val) !== validKeys[key]) {
       return false;
     }
   }
   return true;
 }
 
-function has(obj, key) {
-  return {}.hasOwnProperty.call(obj, key);
+function isValidType(obj, key) {
+  return typeof obj[key] === 'function' || typeof obj[key] === 'undefined';
 }
 
 /**
