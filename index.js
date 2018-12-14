@@ -17,8 +17,9 @@ module.exports = (obj, key, checkProto) => {
   let desc = key ? Object.getOwnPropertyDescriptor(obj, key) : obj;
   if (key && !desc && checkProto !== false) {
     obj = obj.constructor.prototype;
-    desc = key ? Object.getOwnPropertyDescriptor(obj, key) : obj;
+    desc = Object.getOwnPropertyDescriptor(obj, key);
   }
+
   if (!isObject(desc)) return false;
 
   const check = value => {
