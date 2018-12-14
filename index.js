@@ -1,71 +1,56 @@
 /*!
  * is-accessor-descriptor <https://github.com/jonschlinkert/is-accessor-descriptor>
  *
- * Copyright (c) 2015-2017, Jon Schlinkert.
+ * Copyright (c) 2015-present, Jon Schlinkert.
  * Released under the MIT License.
  */
 
 'use strict';
 
-var typeOf = require('kind-of');
+const isObject = val => {
+  return val !== null && typeof val === 'object' && !Array.isArray(val);
+};
 
-function isAccessorDescriptor(obj, prop, checkProto) {
-  if (typeof prop === 'boolean') {
-    checkProto = prop;
-    prop = null;
-  }
-  if (typeof prop === 'string') {
-    return isGetterSetter(obj, prop, checkProto);
-  }
-  return looksLikeGetterSetter(obj);
-}
+module.exports = (obj, key, checkProto) => {
+  if (!isObject(obj)) return false;
 
-function isGetterSetter(obj, key, checkProto) {
-  const descriptor = Object.getOwnPropertyDescriptor(obj, key);
-  if (descriptor) {
-    return looksLikeGetterSetter(descriptor);
+  let desc = key ? Object.getOwnPropertyDescriptor(obj, key) : obj;
+  if (key && !desc && checkProto !== false) {
+    obj = obj.constructor.prototype;
+    desc = key ? Object.getOwnPropertyDescriptor(obj, key) : obj;
   }
-  if (checkProto !== false && obj.constructor && obj.constructor.prototype) {
-    return isGetterSetter(obj.constructor.prototype, key, false);
-  }
-  return false;
-}
+  if (!isObject(desc)) return false;
 
-function looksLikeGetterSetter(descriptor) {
-  if (typeOf(descriptor) !== 'object') {
-    return false;
-  }
+  const check = value => {
+    let validKeys = ['get', 'set', 'enumerable', 'configurable'];
 
-  const keys = Object.keys(descriptor);
-  const len = keys.length;
+    for (let key of validKeys) {
+      if (!desc.hasOwnProperty(key)) {
+        return false;
+      }
+    }
 
-  const validKeys = {
-    get: 'function',
-    set: 'function',
-    enumerable: 'boolean',
-    configurable: 'boolean'
+    for (let key of Object.keys(value)) {
+      if (!validKeys.includes(key)) return false;
+      let val = value[key];
+
+      if (key === 'get' || key === 'set') {
+        if (val !== void 0 && typeof val !== 'function') {
+          return false;
+        }
+        continue;
+      }
+
+      if (typeof val !== 'boolean') {
+        return false;
+      }
+    }
+    return true;
   };
 
-  if (len !== 4) return false;
-  for (let i = 0; i < len; i++) {
-    const key = keys[i];
-    if (!validKeys.hasOwnProperty(key)) {
-      return false;
-    }
-    const val = descriptor[key];
-    if (val != null && typeOf(val) !== validKeys[key]) {
-      return false;
-    }
+  if (check(desc) === true) {
+    return true;
   }
-  return true;
-}
 
-function isValidType(obj, key) {
-  return typeof obj[key] === 'function' || typeof obj[key] === 'undefined';
-}
-
-/**
- * Expose `isAccessorDescriptor`
- */
-
-module.exports = isAccessorDescriptor;
+  return false;
+};

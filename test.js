@@ -1,19 +1,19 @@
 'use strict';
 
 require('mocha');
-var assert = require('assert');
-var isAccessor = require('./');
-var noop = function() {};
+const assert = require('assert');
+const isAccessor = require('./');
+const noop = () => {};
 
-describe('isAccessor', function() {
-  it('should be false when not an object', function() {
+describe('isAccessor', () => {
+  it('should be false when not an object', () => {
     assert(!isAccessor('a'));
     assert(!isAccessor(null));
     assert(!isAccessor([]));
   });
 
-  it('should be false when the property has data descriptor properties', function() {
-    var obj = {
+  it('should be false when the property has data descriptor properties', () => {
+    let obj = {
       foo: {
         writable: true,
         enumerable: true,
@@ -25,33 +25,33 @@ describe('isAccessor', function() {
     assert(!isAccessor(obj, 'foo'));
   });
 
-  it('should be true when the property is a valid getter/setter', function() {
-    const obj = {get foo() {}};
-    assert(isAccessor(obj, 'foo'));
-    assert(isAccessor(Object.getOwnPropertyDescriptor(obj, 'foo')));
+  it('should be true when the property is a valid getter/setter', () => {
+    const obj = { foo() {}, set bar(value) {}, get bar() {} };
+    assert(isAccessor(obj, 'bar'));
+    assert(isAccessor(Object.getOwnPropertyDescriptor(obj, 'bar')));
   });
 
-  it('should check ctor.prototype', function() {
+  it('should check ctor.prototype', () => {
     class Foo {
       get bar() {
         return 'baz';
       }
     }
-    var obj = new Foo();
+    let obj = new Foo();
     assert(isAccessor(obj, 'bar'));
   });
 
-  it('should not check ctor.prototype when disabled', function() {
+  it('should not check ctor.prototype when disabled', () => {
     class Foo {
       get bar() {
         return 'baz';
       }
     }
-    var obj = new Foo();
+    let obj = new Foo();
     assert(!isAccessor(obj, 'bar', false));
   });
 
-  it('should be false when get or set are not functions', function() {
+  it('should be false when get or set are not functions', () => {
     assert(!isAccessor({
       configurable: true,
       enumerable: true,
@@ -87,13 +87,13 @@ describe('isAccessor', function() {
     }));
   });
 
-  it('should be false when the object lacks necessary properties', function() {
+  it('should be false when the object lacks necessary properties', () => {
     assert(!isAccessor({ set: noop }));
     assert(!isAccessor({ get: noop, set: noop }));
     assert(!isAccessor({ get: noop }));
   });
 
-  it('should be false when invalid properties are defined', function() {
+  it('should be false when invalid properties are defined', () => {
     assert(!isAccessor({
       enumerable: true,
       configurable: true,
@@ -105,11 +105,11 @@ describe('isAccessor', function() {
       enumerable: true,
       configurable: true,
       get: noop,
-      bar: true,
+      bar: true
     }));
   });
 
-  it('should be false when a value is not the correct type', function() {
+  it('should be false when a value is not the correct type', () => {
     assert(!isAccessor({ get: noop, set: noop, enumerable: 'foo' }));
     assert(!isAccessor({ set: noop, configurable: 'foo' }));
     assert(!isAccessor({ get: noop, configurable: 'foo' }));
