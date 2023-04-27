@@ -12,9 +12,6 @@
 		},
 		{
 			"files": "test/**/*.js",
-			"env": {
-				"mocha": true,
-			},
 			"rules": {
 				"class-methods-use-this": "off",
 				"getter-return": "off",

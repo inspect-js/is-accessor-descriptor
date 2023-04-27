@@ -1,19 +1,20 @@
 'use strict';
 
-require('mocha');
-const assert = require('assert');
-const isAccessor = require('../');
+const test = require('tape');
+const isAccessorDescriptor = require('../');
 const noop = () => {};
 
-describe('isAccessor', () => {
-	it('should be false when not an object', () => {
-		assert(!isAccessor('a'));
-		assert(!isAccessor(null));
-		assert(!isAccessor([]));
+test('isAccessorDescriptor', (t) => {
+	t.test('value type: is false when not an object', (st) => {
+		st.notOk(isAccessorDescriptor('a'));
+		st.notOk(isAccessorDescriptor(null));
+		st.notOk(isAccessorDescriptor([]));
+
+		st.end();
 	});
 
-	it('should be false when the property has data descriptor properties', () => {
-		const obj = {
+	t.notOk(
+		isAccessorDescriptor({
 			foo: {
 				writable: true,
 				enumerable: true,
@@ -21,97 +22,95 @@ describe('isAccessor', () => {
 				get: noop,
 				set: noop,
 			},
-		};
-		assert(!isAccessor(obj, 'foo'));
-	});
+		}, 'foo'),
+		'is false when the property has data descriptor properties'
+	);
 
-	it('should be true when the property is a valid getter/setter', () => {
+	t.test('should be true when the property is a valid getter/setter', (st) => {
 		const obj = { foo() {}, get bar() {}, set bar(value) {} };
-		assert(isAccessor(obj, 'bar'));
-		assert(isAccessor(Object.getOwnPropertyDescriptor(obj, 'bar')));
+		st.ok(isAccessorDescriptor(obj, 'bar'));
+		st.ok(isAccessorDescriptor(Object.getOwnPropertyDescriptor(obj, 'bar')));
+
+		st.end();
 	});
 
-	it('should check ctor.prototype', () => {
-		class Foo {
-			get bar() {
-				return 'baz';
-			}
+	class Foo {
+		get bar() {
+			return 'baz';
 		}
-		const obj = new Foo();
-		assert(isAccessor(obj, 'bar'));
-	});
+	}
+	t.ok(isAccessorDescriptor(new Foo(), 'bar'), 'checks ctor.prototype');
+	t.notOk(isAccessorDescriptor(new Foo(), 'bar', false), 'does not check ctor.prototype when disabled');
 
-	it('should not check ctor.prototype when disabled', () => {
-		class Foo {
-			get bar() {
-				return 'baz';
-			}
-		}
-		const obj = new Foo();
-		assert(!isAccessor(obj, 'bar', false));
-	});
-
-	it('should be false when get or set are not functions', () => {
-		assert(!isAccessor({
+	t.test('is false when get or set are not functions', (st) => {
+		st.notOk(isAccessorDescriptor({
 			configurable: true,
 			enumerable: true,
 			set: 'baz',
 			get: noop,
 		}));
 
-		assert(!isAccessor({
+		st.notOk(isAccessorDescriptor({
 			configurable: true,
 			enumerable: true,
 			set: noop,
 			get: 'foo',
 		}));
 
-		assert(!isAccessor({
+		st.notOk(isAccessorDescriptor({
 			configurable: true,
 			enumerable: true,
 			bar: 'baz',
 			get: 'foo',
 		}));
 
-		assert(!isAccessor({
+		st.notOk(isAccessorDescriptor({
 			configurable: true,
 			enumerable: true,
 			set: 'baz',
 			get: 'foo',
 		}));
 
-		assert(!isAccessor({
+		st.notOk(isAccessorDescriptor({
 			get: 'foo',
 			enumerable: true,
 			configurable: true,
 		}));
+
+		st.end();
 	});
 
-	it('should be false when the object lacks necessary properties', () => {
-		assert(!isAccessor({ set: noop }));
-		assert(!isAccessor({ get: noop, set: noop }));
-		assert(!isAccessor({ get: noop }));
+	t.test('is false when the object lacks necessary properties', (st) => {
+		st.notOk(isAccessorDescriptor({ set: noop }));
+		st.notOk(isAccessorDescriptor({ get: noop, set: noop }));
+		st.notOk(isAccessorDescriptor({ get: noop }));
+
+		st.end();
 	});
 
-	it('should be false when invalid properties are defined', () => {
-		assert(!isAccessor({
+	t.test('is false when invalid properties are defined', (st) => {
+		st.notOk(isAccessorDescriptor({
 			enumerable: true,
 			configurable: true,
 			get: noop,
 			foo: true,
 		}));
 
-		assert(!isAccessor({
+		st.notOk(isAccessorDescriptor({
 			enumerable: true,
 			configurable: true,
 			get: noop,
 			bar: true,
 		}));
+
+		st.end();
 	});
 
-	it('should be false when a value is not the correct type', () => {
-		assert(!isAccessor({ get: noop, set: noop, enumerable: 'foo' }));
-		assert(!isAccessor({ set: noop, configurable: 'foo' }));
-		assert(!isAccessor({ get: noop, configurable: 'foo' }));
+	t.test('is false when a value is not the correct type', (st) => {
+		st.notOk(isAccessorDescriptor({ get: noop, set: noop, enumerable: 'foo' }));
+		st.notOk(isAccessorDescriptor({ set: noop, configurable: 'foo' }));
+		st.notOk(isAccessorDescriptor({ get: noop, configurable: 'foo' }));
+
+		st.end();
 	});
 });
