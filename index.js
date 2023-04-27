@@ -12,8 +12,8 @@ module.exports = function isAccessorDescriptor(obj, key, checkProto) {
 		return false;
 	}
 
-	var desc = key ? Object.getOwnPropertyDescriptor(obj, key) : obj;
-	if (key && !desc && checkProto !== false) {
+	var desc = arguments.length > 1 ? Object.getOwnPropertyDescriptor(obj, key) : obj;
+	if (arguments.length > 1 && !desc && checkProto !== false) {
 		obj = obj.constructor.prototype;
 		desc = Object.getOwnPropertyDescriptor(obj, key);
 	}

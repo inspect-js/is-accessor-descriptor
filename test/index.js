@@ -127,4 +127,14 @@ test('isAccessorDescriptor', function (t) {
 
 		st.end();
 	});
+
+	t.test('with a key', { skip: !hasPropertyDescriptors }, function (st) {
+		var desc = { enumerable: true, get: function () {} };
+
+		st.equal(isAccessorDescriptor(Object.defineProperty({}, 'foo', desc), 'foo'), true, 'an accessor property is an accessor descriptor');
+		st.equal(isAccessorDescriptor(Object.defineProperty({}, '', desc), ''), true, 'an empty string accessor property is an accessor descriptor');
+		st.equal(isAccessorDescriptor(Object.defineProperty({}, 0, desc), 0), true, 'a zero accessor property is an accessor descriptor');
+
+		st.end();
+	});
 });
