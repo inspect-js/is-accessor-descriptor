@@ -1,16 +1,18 @@
 'use strict';
 
-const hasOwn = function (obj, key) {
+var hasOwn = function (obj, key) {
 	return Object.prototype.hasOwnProperty.call(obj, key);
 };
-const isObject = (val) => val !== null && typeof val === 'object' && !Array.isArray(val);
+var isObject = function (val) {
+	return val !== null && typeof val === 'object' && !Array.isArray(val);
+};
 
-module.exports = (obj, key, checkProto) => {
+module.exports = function isAccessorDescriptor(obj, key, checkProto) {
 	if (!isObject(obj)) {
 		return false;
 	}
 
-	let desc = key ? Object.getOwnPropertyDescriptor(obj, key) : obj;
+	var desc = key ? Object.getOwnPropertyDescriptor(obj, key) : obj;
 	if (key && !desc && checkProto !== false) {
 		obj = obj.constructor.prototype;
 		desc = Object.getOwnPropertyDescriptor(obj, key);
@@ -20,43 +22,35 @@ module.exports = (obj, key, checkProto) => {
 		return false;
 	}
 
-	const check = (value) => {
-		const validKeys = [
-			'get',
-			'set',
-			'enumerable',
-			'configurable',
-		];
-
-		for (const validKey of validKeys) {
-			if (!hasOwn(desc, validKey)) {
-				return false;
-			}
-		}
-
-		for (const valueKey of Object.keys(value)) {
-			if (!validKeys.includes(valueKey)) {
-				return false;
-			}
-			const val = value[valueKey];
-
-			if (valueKey === 'get' || valueKey === 'set') {
-				if (val !== void 0 && typeof val !== 'function') {
-					return false;
-				}
-				continue; // eslint-disable-line no-continue, no-restricted-syntax
-			}
-
-			if (typeof val !== 'boolean') {
-				return false;
-			}
-		}
-		return true;
-	};
-
-	if (check(desc) === true) {
-		return true;
+	if (
+		!hasOwn(desc, 'get')
+		|| !hasOwn(desc, 'set')
+		|| !hasOwn(desc, 'enumerable')
+		|| !hasOwn(desc, 'configurable')
+	) {
+		return false;
 	}
 
-	return false;
+	for (var descKey in desc) { // eslint-disable-line no-restricted-syntax
+		if (hasOwn(desc, descKey)) {
+			if (
+				descKey !== 'get'
+				&& descKey !== 'set'
+				&& descKey !== 'enumerable'
+				&& descKey !== 'configurable'
+			) {
+				return false;
+			}
+
+			var val = desc[descKey];
+			if (descKey === 'get' || descKey === 'set') {
+				if (typeof val !== 'undefined' && typeof val !== 'function') {
+					return false;
+				}
+			} else if (typeof val !== 'boolean') {
+				return false;
+			}
+		}
+	}
+	return true;
 };

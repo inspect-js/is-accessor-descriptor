@@ -1,12 +1,13 @@
 {
 	"root": true,
 
-	"extends": "@ljharb/eslint-config/node/6",
+	"extends": "@ljharb",
 
 	"overrides": [
 		{
 			"files": "index.js",
 			"rules": {
+				"complexity": "off",
 				"no-param-reassign": "warn",
 			},
 		},
