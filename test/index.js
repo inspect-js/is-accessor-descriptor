@@ -1,6 +1,7 @@
 'use strict';
 
 var test = require('tape');
+var hasPropertyDescriptors = require('has-property-descriptors')();
 var isAccessorDescriptor = require('../');
 var noop = function () {};
 
@@ -26,7 +27,7 @@ test('isAccessorDescriptor', function (t) {
 		'is false when the property has data descriptor properties'
 	);
 
-	t.test('should be true when the property is a valid getter/setter', function (st) {
+	t.test('should be true when the property is a valid getter/setter', { skip: !hasPropertyDescriptors }, function (st) {
 		var obj = {
 			foo: function () {}
 		};
@@ -41,15 +42,19 @@ test('isAccessorDescriptor', function (t) {
 		st.end();
 	});
 
-	var Foo = function Foo() {}; // eslint-disable-line func-name-matching
-	Object.defineProperty(Foo.prototype, 'bar', {
-		get: function bar() {
-			return 'baz';
-		}
-	});
+	t.test('constructor.prototype:', { skip: !hasPropertyDescriptors }, function (st) {
+		var Foo = function Foo() {}; // eslint-disable-line func-name-matching
+		Object.defineProperty(Foo.prototype, 'bar', {
+			get: function bar() {
+				return 'baz';
+			}
+		});
 
-	t.ok(isAccessorDescriptor(new Foo(), 'bar'), 'checks ctor.prototype');
-	t.notOk(isAccessorDescriptor(new Foo(), 'bar', false), 'does not check ctor.prototype when disabled');
+		st.ok(isAccessorDescriptor(new Foo(), 'bar'), 'checks ctor.prototype');
+		st.notOk(isAccessorDescriptor(new Foo(), 'bar', false), 'does not check ctor.prototype when disabled');
+
+		st.end();
+	});
 
 	t.test('is false when get or set are not functions', function (st) {
 		st.notOk(isAccessorDescriptor({

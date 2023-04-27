@@ -14,10 +14,9 @@
 		{
 			"files": "test/**/*.js",
 			"rules": {
-				"class-methods-use-this": "off",
+				"id-length": "off",
 				"getter-return": "off",
 				"max-lines-per-function": "warn",
-				"no-empty-function": "off",
 			},
 		},
 	],
