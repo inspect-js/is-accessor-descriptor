@@ -17,8 +17,8 @@ $ npm install --save is-accessor-descriptor
 ```js
 const isAccessor = require('is-accessor-descriptor');
 const obj = {
-  get foo() {},
-  bar: {get: function() {}}
+	get foo() {},
+	bar: {get: function() {}}
 };
 
 isAccessor(obj, 'foo'); //=> true
@@ -77,10 +77,10 @@ You might also be interested in these projects:
 
 ### Contributors
 
-| **Commits** | **Contributor** |  
-| --- | --- |  
-| 29 | [jonschlinkert](https://github.com/jonschlinkert) |  
-| 2  | [realityking](https://github.com/realityking) |  
+| **Commits** | **Contributor** |
+| --- | --- |
+| 29 | [jonschlinkert](https://github.com/jonschlinkert) |
+| 2 | [realityking](https://github.com/realityking) |
 
 ### Author
 

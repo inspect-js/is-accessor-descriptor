@@ -1,0 +1,26 @@
+{
+	"root": true,
+
+	"extends": "@ljharb/eslint-config/node/6",
+
+	"overrides": [
+		{
+			"files": "index.js",
+			"rules": {
+				"no-param-reassign": "warn",
+			},
+		},
+		{
+			"files": "test/**/*.js",
+			"env": {
+				"mocha": true,
+			},
+			"rules": {
+				"class-methods-use-this": "off",
+				"getter-return": "off",
+				"max-lines-per-function": "warn",
+				"no-empty-function": "off",
+			},
+		},
+	],
+}
