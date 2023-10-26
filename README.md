@@ -24,15 +24,15 @@ $ npm i is-accessor-descriptor --save
 
 ```js
 var isAccessor = require('is-accessor-descriptor');
+var assert = require('assert');
 
-isAccessor({get: function() {}});
-//=> true
+assert.equal(isAccessor({ get() {} }), true);
 ```
 
 You may also pass an object and property name to check if the property is an accessor:
 
 ```js
-isAccessor(foo, 'bar');
+assert.equal(isAccessor({ bar: 'foo' }, 'bar'), false);
 ```
 
 ## Examples
@@ -40,10 +40,9 @@ isAccessor(foo, 'bar');
 `false` when not an object
 
 ```js
-isAccessor('a')
-isAccessor(null)
-isAccessor([])
-//=> false
+assert.equal(isAccessor('a'), false);
+assert.equal(isAccessor(null), false);
+assert.equal(isAccessor([]), false);
 ```
 
 `true` when the object has valid properties
@@ -51,37 +50,36 @@ isAccessor([])
 and the properties all have the correct JavaScript types:
 
 ```js
-isAccessor({get: noop, set: noop})
-isAccessor({get: noop})
-isAccessor({set: noop})
-//=> true
+assert.equal(isAccessor({ get() {}, set() {} }), true);
+assert.equal(isAccessor({ get() {} }), true);
+assert.equal(isAccessor({ set() {} }), true);
 ```
 
 `false` when the object has invalid properties
 
 ```js
-isAccessor({get: noop, set: noop, bar: 'baz'})
-isAccessor({get: noop, writable: true})
-isAccessor({get: noop, value: true})
+assert.equal(isAccessor({ get() {}, set() {}, enumerable: 'baz' }), false);
+assert.equal(isAccessor({ get() {}, writable: true }), false);
+assert.equal(isAccessor({ get() {}, value: true }), false);
 //=> false
 ```
 
 `false` when an accessor is not a function
 
 ```js
-isAccessor({get: noop, set: 'baz'})
-isAccessor({get: 'foo', set: noop})
-isAccessor({get: 'foo', bar: 'baz'})
-isAccessor({get: 'foo', set: 'baz'})
+assert.equal(isAccessor({ get() {}, set: 'baz' }), false);
+assert.equal(isAccessor({ get: 'foo', set() {} }), false);
+assert.equal(isAccessor({ get: 'foo', bar: 'baz' }), false);
+assert.equal(isAccessor({ get: 'foo', set: 'baz' }), false);
 //=> false
 ```
 
 `false` when a value is not the correct type
 
 ```js
-isAccessor({get: noop, set: noop, enumerable: 'foo'})
-isAccessor({set: noop, configurable: 'foo'})
-isAccessor({get: noop, configurable: 'foo'})
+assert.equal(isAccessor({ get() {}, set() {}, enumerable: 'foo' }), false);
+assert.equal(isAccessor({ set() {}, configurable: 'foo' }), false);
+assert.equal(isAccessor({ get() {}, configurable: 'foo' }), false);
 //=> false
 ```
 
