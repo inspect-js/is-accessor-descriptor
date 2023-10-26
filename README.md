@@ -47,7 +47,7 @@ assert.equal(isAccessor({ set() {} }), true);
 `false` when the object has invalid properties
 
 ```js
-assert.equal(isAccessor({ get() {}, set() {}, bar: 'baz' }), false);
+assert.equal(isAccessor({ get() {}, set() {}, enumerable: 'baz' }), false);
 assert.equal(isAccessor({ get() {}, writable: true }), false);
 assert.equal(isAccessor({ get() {}, value: true }), false);
 ```
