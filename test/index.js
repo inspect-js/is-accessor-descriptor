@@ -37,15 +37,10 @@ test('isDescriptor', function (t) {
 		st.end();
 	});
 
-	t.test('should be false when "get" is not defined:', function (st) {
-		st.notOk(isDescriptor({ set: noop }));
-
-		st.end();
-	});
-
 	t.test('should be true when the object has valid properties:', function (st) {
 		st.ok(isDescriptor({ get: noop, set: noop }));
 		st.ok(isDescriptor({ get: noop }));
+		st.ok(isDescriptor({ set: noop }));
 
 		st.end();
 	});
