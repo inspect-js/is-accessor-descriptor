@@ -8,6 +8,7 @@ var hasOwn = function has(obj, key) {
 
 // accessor descriptor properties
 var accessor = {
+	__proto__: null,
 	configurable: 'boolean',
 	enumerable: 'boolean',
 	get: 'function',
