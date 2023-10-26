@@ -1,11 +1,8 @@
 'use strict';
 
 var gOPD = require('gopd');
+var hasOwn = require('hasown');
 var typeOf = require('kind-of');
-
-var has = function hasOwn(obj, key) {
-	return Object.prototype.hasOwnProperty.call(obj, key);
-};
 
 // accessor descriptor properties
 var accessor = {
@@ -18,18 +15,18 @@ var accessor = {
 
 module.exports = function isAccessorDescriptor(obj, prop) {
 	if (typeof prop === 'string') {
-		return gOPD ? isAccessorDescriptor(gOPD(obj, prop)) : has(obj, prop);
+		return gOPD ? isAccessorDescriptor(gOPD(obj, prop)) : hasOwn(obj, prop);
 	}
 
 	if (
 		typeOf(obj) !== 'object'
-		|| has(obj, 'value')
-		|| has(obj, 'writable')
-		|| (has(obj, 'get') && typeof obj.get !== 'function' && typeof obj.get !== 'undefined')
-		|| (has(obj, 'set') && typeof obj.set !== 'function' && typeof obj.set !== 'undefined')
+		|| hasOwn(obj, 'value')
+		|| hasOwn(obj, 'writable')
+		|| (hasOwn(obj, 'get') && typeof obj.get !== 'function' && typeof obj.get !== 'undefined')
+		|| (hasOwn(obj, 'set') && typeof obj.set !== 'function' && typeof obj.set !== 'undefined')
 		|| !(
-			(has(obj, 'get') && typeof obj.get === 'function')
-			|| (has(obj, 'set') && typeof obj.set === 'function')
+			(hasOwn(obj, 'get') && typeof obj.get === 'function')
+			|| (hasOwn(obj, 'set') && typeof obj.set === 'function')
 		)
 	) {
 		return false;
@@ -37,7 +34,7 @@ module.exports = function isAccessorDescriptor(obj, prop) {
 
 	for (var key in obj) { // eslint-disable-line no-restricted-syntax
 		if (
-			has(accessor, key)
+			hasOwn(accessor, key)
 			&& typeOf(obj[key]) !== accessor[key]
 			&& typeof obj[key] !== 'undefined'
 		) {

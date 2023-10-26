@@ -55,6 +55,7 @@
 	],
 	"dependencies": {
 		"gopd": "^1.0.1",
+		"hasown": "^2.0.0",
 		"kind-of": "^3.0.2"
 	},
 	"devDependencies": {
