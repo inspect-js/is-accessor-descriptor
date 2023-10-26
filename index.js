@@ -34,7 +34,8 @@ module.exports = function isAccessorDescriptor(obj, prop) {
 
 	for (var key in obj) { // eslint-disable-line no-restricted-syntax
 		if (
-			hasOwn(accessor, key)
+			hasOwn(obj, key)
+			&& hasOwn(accessor, key)
 			&& typeOf(obj[key]) !== accessor[key]
 			&& typeof obj[key] !== 'undefined'
 		) {
