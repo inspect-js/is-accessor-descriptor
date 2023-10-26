@@ -3,7 +3,7 @@
 require('mocha');
 var assert = require('assert');
 var should = require('should');
-var isDescriptor = require('./');
+var isDescriptor = require('../');
 var noop = function(){};
 
 describe('isDescriptor', function () {
