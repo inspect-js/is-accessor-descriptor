@@ -54,6 +54,7 @@
 		"Jordan Harband <ljharb@gmail.com>"
 	],
 	"dependencies": {
+		"gopd": "^1.0.1",
 		"kind-of": "^3.0.2"
 	},
 	"devDependencies": {

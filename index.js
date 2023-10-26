@@ -1,5 +1,6 @@
 'use strict';
 
+var gOPD = require('gopd');
 var typeOf = require('kind-of');
 
 var has = function hasOwn(obj, key) {
@@ -17,8 +18,7 @@ var accessor = {
 
 module.exports = function isAccessorDescriptor(obj, prop) {
 	if (typeof prop === 'string') {
-		var val = Object.getOwnPropertyDescriptor(obj, prop);
-		return typeof val !== 'undefined';
+		return gOPD ? isAccessorDescriptor(gOPD(obj, prop)) : has(obj, prop);
 	}
 
 	if (
