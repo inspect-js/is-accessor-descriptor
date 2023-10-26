@@ -31,7 +31,6 @@ assert.equal(isAccessor({ bar: {} }, 'bar'), true);
 ```js
 assert.equal(isAccessor('a'), false);
 assert.equal(isAccessor(null), false);
-assert.equal(isAccessor([]), false);
 ```
 
 `true` when the object has valid properties

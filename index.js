@@ -1,6 +1,5 @@
 'use strict';
 
-var typeOf = require('kind-of');
 var hasOwn = require('hasown');
 
 // accessor descriptor properties
@@ -18,7 +17,7 @@ module.exports = function isAccessorDescriptor(obj, prop) {
 		return typeof val !== 'undefined';
 	}
 
-	if (!obj || typeOf(obj) !== 'object') {
+	if (!obj || typeof obj !== 'object') {
 		return false;
 	}
 
@@ -43,7 +42,7 @@ module.exports = function isAccessorDescriptor(obj, prop) {
 	}
 
 	for (var key in obj) { // eslint-disable-line no-restricted-syntax
-		if (hasOwn(obj, key) && hasOwn(accessor, key) && typeOf(obj[key]) !== accessor[key] && typeof obj[key] !== 'undefined') {
+		if (hasOwn(obj, key) && hasOwn(accessor, key) && typeof obj[key] !== accessor[key] && typeof obj[key] !== 'undefined') {
 			return false;
 		}
 	}
