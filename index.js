@@ -1,4 +1,5 @@
-/*!
+/*
+ *!
  * is-accessor-descriptor <https://github.com/jonschlinkert/is-accessor-descriptor>
  *
  * Copyright (c) 2015-2017, Jon Schlinkert.
@@ -9,61 +10,57 @@
 
 var typeOf = require('kind-of');
 
-// accessor descriptor properties
-var accessor = {
-  get: 'function',
-  set: 'function',
-  configurable: 'boolean',
-  enumerable: 'boolean'
+var hasOwn = function has(obj, key) {
+	return Object.prototype.hasOwnProperty.call(obj, key);
 };
 
-function isAccessorDescriptor(obj, prop) {
-  if (typeof prop === 'string') {
-    var val = Object.getOwnPropertyDescriptor(obj, prop);
-    return typeof val !== 'undefined';
-  }
+// accessor descriptor properties
+var accessor = {
+	configurable: 'boolean',
+	enumerable: 'boolean',
+	get: 'function',
+	set: 'function'
+};
 
-  if (typeOf(obj) !== 'object') {
-    return false;
-  }
+module.exports = function isAccessorDescriptor(obj, prop) {
+	if (typeof prop === 'string') {
+		var val = Object.getOwnPropertyDescriptor(obj, prop);
+		return typeof val !== 'undefined';
+	}
 
-  if (has(obj, 'value') || has(obj, 'writable')) {
-    return false;
-  }
+	if (typeOf(obj) !== 'object') {
+		return false;
+	}
 
-  if (!has(obj, 'get') || typeof obj.get !== 'function') {
-    return false;
-  }
+	if (hasOwn(obj, 'value') || hasOwn(obj, 'writable')) {
+		return false;
+	}
 
-  // tldr: it's valid to have "set" be undefined
-  // "set" might be undefined if `Object.getOwnPropertyDescriptor`
-  // was used to get the value, and only `get` was defined by the user
-  if (has(obj, 'set') && typeof obj[key] !== 'function' && typeof obj[key] !== 'undefined') {
-    return false;
-  }
+	if (!hasOwn(obj, 'get') || typeof obj.get !== 'function') {
+		return false;
+	}
 
-  for (var key in obj) {
-    if (!accessor.hasOwnProperty(key)) {
-      continue;
-    }
+	/*
+	 * tldr: it's valid to have "set" be undefined
+	 * "set" might be undefined if `Object.getOwnPropertyDescriptor`
+	 * was used to get the value, and only `get` was defined by the user
+	 */
+	if (hasOwn(obj, 'set') && typeof obj[key] !== 'function' && typeof obj[key] !== 'undefined') {
+		return false;
+	}
 
-    if (typeOf(obj[key]) === accessor[key]) {
-      continue;
-    }
+	for (var key in obj) { // eslint-disable-line no-restricted-syntax
+		if (!hasOwn(accessor, key)) {
+			continue; // eslint-disable-line no-restricted-syntax, no-continue
+		}
 
-    if (typeof obj[key] !== 'undefined') {
-      return false;
-    }
-  }
-  return true;
-}
+		if (typeOf(obj[key]) === accessor[key]) {
+			continue; // eslint-disable-line no-restricted-syntax, no-continue
+		}
 
-function has(obj, key) {
-  return {}.hasOwnProperty.call(obj, key);
-}
-
-/**
- * Expose `isAccessorDescriptor`
- */
-
-module.exports = isAccessorDescriptor;
+		if (typeof obj[key] !== 'undefined') {
+			return false;
+		}
+	}
+	return true;
+};
