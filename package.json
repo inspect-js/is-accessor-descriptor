@@ -46,6 +46,7 @@
 		"Rouven Weßling (www.rouvenwessling.de)"
 	],
 	"dependencies": {
+		"hasown": "^2.0.0",
 		"kind-of": "^6.0.0"
 	},
 	"devDependencies": {

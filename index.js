@@ -1,10 +1,7 @@
 'use strict';
 
 var typeOf = require('kind-of');
-
-var hasOwn = function has(obj, key) {
-	return Object.prototype.hasOwnProperty.call(obj, key);
-};
+var hasOwn = require('hasown');
 
 // accessor descriptor properties
 var accessor = {
