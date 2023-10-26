@@ -18,7 +18,7 @@ module.exports = function isAccessorDescriptor(obj, prop) {
 		return typeof val !== 'undefined';
 	}
 
-	if (typeOf(obj) !== 'object') {
+	if (!obj || typeOf(obj) !== 'object') {
 		return false;
 	}
 
@@ -26,32 +26,25 @@ module.exports = function isAccessorDescriptor(obj, prop) {
 		return false;
 	}
 
-	if (!hasOwn(obj, 'get') || typeof obj.get !== 'function') {
+	// one of them must be a function
+	if (
+		(!hasOwn(obj, 'get') || typeof obj.get !== 'function')
+		&& (!hasOwn(obj, 'set') || typeof obj.set !== 'function')
+	) {
 		return false;
 	}
 
-	/*
-	 * tldr: it's valid to have "set" be undefined
-	 * "set" might be undefined if `Object.getOwnPropertyDescriptor`
-	 * was used to get the value, and only `get` was defined by the user
-	 */
-	if (hasOwn(obj, 'set') && typeof obj[key] !== 'function' && typeof obj[key] !== 'undefined') {
+	// both of them must be a function or undefined
+	if (
+		(hasOwn(obj, 'get') && typeof obj.get !== 'function' && typeof obj.get !== 'undefined')
+		|| (hasOwn(obj, 'set') && typeof obj.set !== 'function' && typeof obj.set !== 'undefined')
+	) {
 		return false;
 	}
 
 	for (var key in obj) { // eslint-disable-line no-restricted-syntax
-		if (hasOwn(obj, key)) {
-			if (!hasOwn(accessor, key)) {
-				continue; // eslint-disable-line no-restricted-syntax, no-continue
-			}
-
-			if (typeOf(obj[key]) === accessor[key]) {
-				continue; // eslint-disable-line no-restricted-syntax, no-continue
-			}
-
-			if (typeof obj[key] !== 'undefined') {
-				return false;
-			}
+		if (hasOwn(obj, key) && hasOwn(accessor, key) && typeOf(obj[key]) !== accessor[key] && typeof obj[key] !== 'undefined') {
+			return false;
 		}
 	}
 	return true;
