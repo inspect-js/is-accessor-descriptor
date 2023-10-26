@@ -2,7 +2,6 @@
 
 var gOPD = require('gopd');
 var hasOwn = require('hasown');
-var typeOf = require('kind-of');
 
 // accessor descriptor properties
 var accessor = {
@@ -19,7 +18,8 @@ module.exports = function isAccessorDescriptor(obj, prop) {
 	}
 
 	if (
-		typeOf(obj) !== 'object'
+		!obj
+		|| typeof obj !== 'object'
 		|| hasOwn(obj, 'value')
 		|| hasOwn(obj, 'writable')
 		|| (hasOwn(obj, 'get') && typeof obj.get !== 'function' && typeof obj.get !== 'undefined')
@@ -36,7 +36,7 @@ module.exports = function isAccessorDescriptor(obj, prop) {
 		if (
 			hasOwn(obj, key)
 			&& hasOwn(accessor, key)
-			&& typeOf(obj[key]) !== accessor[key]
+			&& typeof obj[key] !== accessor[key]
 			&& typeof obj[key] !== 'undefined'
 		) {
 			return false;
