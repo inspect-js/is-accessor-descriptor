@@ -2,7 +2,7 @@
 
 require('mocha');
 var assert = require('assert');
-var isDescriptor = require('./');
+var isDescriptor = require('../');
 var noop = function() {};
 
 describe('isDescriptor', function() {
