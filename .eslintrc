@@ -13,9 +13,6 @@
 		},
 		{
 			"files": "test/**/*.js",
-			"env": {
-				"mocha": true,
-			},
 			"rules": {
 				"id-length": "off",
 				"getter-return": "off",
