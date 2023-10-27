@@ -1,6 +1,6 @@
 {
 	"name": "is-accessor-descriptor",
-	"version": "3.0.4",
+	"version": "3.0.5",
 	"description": "Returns true if a value has the characteristics of a valid JavaScript accessor descriptor.",
 	"main": "index.js",
 	"exports": {
