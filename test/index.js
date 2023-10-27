@@ -2,6 +2,7 @@
 
 var test = require('tape');
 var hasPropertyDescriptors = require('has-property-descriptors')();
+var gOPD = require('gopd');
 var isAccessorDescriptor = require('../');
 var noop = function () {};
 
@@ -37,7 +38,7 @@ test('isAccessorDescriptor', function (t) {
 		});
 
 		st.ok(isAccessorDescriptor(obj, 'bar'));
-		st.ok(isAccessorDescriptor(Object.getOwnPropertyDescriptor(obj, 'bar')));
+		st.ok(isAccessorDescriptor(gOPD(obj, 'bar')));
 
 		st.end();
 	});
