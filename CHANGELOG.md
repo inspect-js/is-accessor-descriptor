@@ -66,7 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Dev Deps] add missing `npmignore` [`97ce4bc`](https://github.com/inspect-js/is-accessor-descriptor/commit/97ce4bca878e775672e3d7349906bd7fc7db5f24)
 - [Robustness] use a null object just in case [`675af5b`](https://github.com/inspect-js/is-accessor-descriptor/commit/675af5b191ebe9e18fb65c0aecb2a5ae65a535e0)
 
-## [v1.0.0](https://github.com/inspect-js/is-accessor-descriptor/compare/v0.1.6...v1.0.0) - 2017-11-01
+## [v1.0.0](https://github.com/inspect-js/is-accessor-descriptor/compare/v0.1.7...v1.0.0) - 2017-11-01
 
 ### Merged
 
@@ -78,6 +78,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - run update [`2489800`](https://github.com/inspect-js/is-accessor-descriptor/commit/2489800869cbecf53e9bc3596916abf2e6008edb)
 - run verb to generate readme documentation [`22b0a26`](https://github.com/inspect-js/is-accessor-descriptor/commit/22b0a2617ccbebd131247c29e3700ca860d37d06)
 - remove should [`4b10d2a`](https://github.com/inspect-js/is-accessor-descriptor/commit/4b10d2aa721021d5f7af69c47f49a1691a8c3fcd)
+
+## [v0.1.7](https://github.com/inspect-js/is-accessor-descriptor/compare/v0.1.6...v0.1.7) - 2023-10-26
+
+### Commits
+
+- [eslint] actually use eslint [`d0b9c94`](https://github.com/inspect-js/is-accessor-descriptor/commit/d0b9c94c669a8c2939566fc805e97e0a517ea1db)
+- [meta] update package.json, etc from main [`c4fab21`](https://github.com/inspect-js/is-accessor-descriptor/commit/c4fab216ad2f011daf45e35323f1d8a872041e63)
+- [Tests] switch to tape [`9a0ab35`](https://github.com/inspect-js/is-accessor-descriptor/commit/9a0ab35563c55cb23e663bd5c842811c59371e31)
+- [Tests] migrate from travis to github actions [`6e9c4f1`](https://github.com/inspect-js/is-accessor-descriptor/commit/6e9c4f1a211697db4956743992107e67f751b433)
+- [readme] remove verb [`967137d`](https://github.com/inspect-js/is-accessor-descriptor/commit/967137d64da7b14dd861f27c9092a2ac66e09564)
+- [readme] use `evalmd` [`471d3b9`](https://github.com/inspect-js/is-accessor-descriptor/commit/471d3b9e33b86a856b68f67dd5e57663af39d746)
+- [Fix] only one of `get` and `set` are required to be an accessor [`c8de5e7`](https://github.com/inspect-js/is-accessor-descriptor/commit/c8de5e75a9e817c2726511701c048d0f9360195b)
+- [Refactor] use `hasown` [`6151f01`](https://github.com/inspect-js/is-accessor-descriptor/commit/6151f01a4244d22545cd9fb4ca9b6b772f62a40f)
+- [Fix] allow any non-primitive; arrays and functions are objects too [`853db5a`](https://github.com/inspect-js/is-accessor-descriptor/commit/853db5a1af876e7c52bee27f6069779d069b1a5c)
+- Only apps should have lockfiles [`87402b1`](https://github.com/inspect-js/is-accessor-descriptor/commit/87402b118e6f391dde566cdcd51f27d0e0aa211f)
+- [Fix] use correct logic for two-arg form [`3c1729e`](https://github.com/inspect-js/is-accessor-descriptor/commit/3c1729e0e5658fc8b53dbbd945e1c99b033f562a)
+- [Fix] properly guard for-in loop [`442daa8`](https://github.com/inspect-js/is-accessor-descriptor/commit/442daa86d808259f62f2ced02619a2bc84f881be)
+- [Tests] move tests to test dir [`18313a7`](https://github.com/inspect-js/is-accessor-descriptor/commit/18313a7d61e9bb0d3ff34b112c2d614a975be0df)
 
 ## [v0.1.6](https://github.com/inspect-js/is-accessor-descriptor/compare/v0.1.5...v0.1.6) - 2015-12-28
 
