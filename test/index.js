@@ -118,6 +118,14 @@ test('isAccessorDescriptor', function (t) {
 			bar: true
 		}));
 
+		st.notOk(isAccessorDescriptor({
+			enumerable: true,
+			configurable: true,
+			get: noop,
+			set: noop,
+			extra: true
+		}), 'is false when a complete descriptor has an extra property');
+
 		st.end();
 	});
 
@@ -125,6 +133,33 @@ test('isAccessorDescriptor', function (t) {
 		st.notOk(isAccessorDescriptor({ get: noop, set: noop, enumerable: 'foo' }));
 		st.notOk(isAccessorDescriptor({ set: noop, configurable: 'foo' }));
 		st.notOk(isAccessorDescriptor({ get: noop, configurable: 'foo' }));
+
+		st.notOk(isAccessorDescriptor({
+			get: noop,
+			set: noop,
+			enumerable: 'foo',
+			configurable: true
+		}), 'is false when enumerable is not a boolean in a complete descriptor');
+
+		st.notOk(isAccessorDescriptor({
+			get: noop,
+			set: noop,
+			enumerable: true,
+			configurable: 'bar'
+		}), 'is false when configurable is not a boolean in a complete descriptor');
+
+		st.end();
+	});
+
+	t.test('ignores inherited enumerable properties on descriptor objects', function (st) {
+		var proto = { inherited: true };
+		var desc = Object.create(proto);
+		desc.get = noop;
+		desc.set = noop;
+		desc.enumerable = true;
+		desc.configurable = true;
+
+		st.ok(isAccessorDescriptor(desc), 'is true when extra properties are only inherited');
 
 		st.end();
 	});
