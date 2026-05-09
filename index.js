@@ -42,7 +42,12 @@ module.exports = function isAccessorDescriptor(obj, prop) {
 	}
 
 	for (var key in obj) { // eslint-disable-line no-restricted-syntax
-		if (hasOwn(obj, key) && hasOwn(accessor, key) && typeof obj[key] !== accessor[key] && typeof obj[key] !== 'undefined') {
+		if (
+			hasOwn(obj, key)
+			&& hasOwn(accessor, key)
+			&& typeof obj[key] !== accessor[key] // eslint-disable-line valid-typeof
+			&& typeof obj[key] !== 'undefined'
+		) {
 			return false;
 		}
 	}
