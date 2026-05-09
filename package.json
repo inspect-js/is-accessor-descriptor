@@ -61,7 +61,7 @@
 		"tape": "^5.7.2"
 	},
 	"engines": {
-		"node": ">= 0.10"
+		"node": ">= 0.4"
 	},
 	"auto-changelog": {
 		"output": "CHANGELOG.md",
