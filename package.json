@@ -54,8 +54,8 @@
 		"Jordan Harband <ljharb@gmail.com>"
 	],
 	"dependencies": {
-		"gopd": "^1.0.1",
-		"hasown": "^2.0.0"
+		"gopd": "^1.2.0",
+		"hasown": "^2.0.3"
 	},
 	"devDependencies": {
 		"@ljharb/eslint-config": "^22.2.3",
