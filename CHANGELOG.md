@@ -80,12 +80,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - refactor [`d01d897`](https://github.com/inspect-js/is-accessor-descriptor/commit/d01d897175f09d3fb285a6bb22e4eb46a46a6045)
 
-## [v2.0.0](https://github.com/inspect-js/is-accessor-descriptor/compare/v1.0.1...v2.0.0) - 2017-12-04
+## [v2.0.0](https://github.com/inspect-js/is-accessor-descriptor/compare/v1.0.2...v2.0.0) - 2017-12-04
 
 ### Commits
 
 - refactor to be stricter [`f7370ef`](https://github.com/inspect-js/is-accessor-descriptor/commit/f7370efe312e338c7f3175d76b973bdd838d0d27)
 - update docs [`fd1764c`](https://github.com/inspect-js/is-accessor-descriptor/commit/fd1764c14dc6bfba668cb502dad57e5e03855ecf)
+
+## [v1.0.2](https://github.com/inspect-js/is-accessor-descriptor/compare/v1.0.1...v1.0.2) - 2026-05-09
+
+### Commits
+
+- [meta] update workflows [`0d8f83a`](https://github.com/inspect-js/is-accessor-descriptor/commit/0d8f83a65fdb02dd0359e1a00231e11372dace02)
+- [Dev Deps] update `@ljharb/eslint-config`, `auto-changelog`, `eslint`, `npmignore`, `tape` [`6a4bbe1`](https://github.com/inspect-js/is-accessor-descriptor/commit/6a4bbe1b2c7c6a7d695f8793a319dc1644d77d78)
+- [meta] use `npm audit` instead of `aud` [`3f32351`](https://github.com/inspect-js/is-accessor-descriptor/commit/3f323515d49205509739fc0e4f2fd16043991564)
+- [Deps] update `hasown` [`ff8ba09`](https://github.com/inspect-js/is-accessor-descriptor/commit/ff8ba092cb149020c9f231d7b7892dceb6e44165)
+- [meta] lower engines.node threshold [`4293ff7`](https://github.com/inspect-js/is-accessor-descriptor/commit/4293ff7bb43e68d39a4b831979eaf3a54ca7f4f8)
 
 ## [v1.0.1](https://github.com/inspect-js/is-accessor-descriptor/compare/v1.0.0...v1.0.1) - 2023-10-26
 
