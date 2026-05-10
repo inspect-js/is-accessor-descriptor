@@ -58,8 +58,8 @@
 		"hasown": "^2.0.2"
 	},
 	"devDependencies": {
-		"@ljharb/eslint-config": "^22.2.0",
-		"auto-changelog": "^2.5.0",
+		"@ljharb/eslint-config": "^22.2.3",
+		"auto-changelog": "^2.5.1",
 		"encoding": "^0.1.13",
 		"eslint": "^8.57.1",
 		"evalmd": "^0.0.19",
