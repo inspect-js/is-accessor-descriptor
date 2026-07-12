@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v3.0.6](https://github.com/inspect-js/is-accessor-descriptor/compare/v3.0.5...v3.0.6) - 2026-07-12
+
+### Commits
+
+- [meta] update workflows [`76b430f`](https://github.com/inspect-js/is-accessor-descriptor/commit/76b430fff2cf5b48cb8d219a746a0ca34cb5cb5e)
+- [meta] update workflows [`0d8f83a`](https://github.com/inspect-js/is-accessor-descriptor/commit/0d8f83a65fdb02dd0359e1a00231e11372dace02)
+- [Dev Deps] update `eslint`, `@ljharb/eslint-config`; migrate to flat config [`90b9531`](https://github.com/inspect-js/is-accessor-descriptor/commit/90b9531b64239a09d2aef1f46808a49742a17d39)
+- [Tests] increase coverage [`ca76972`](https://github.com/inspect-js/is-accessor-descriptor/commit/ca76972319adb5518e97551358f5815708e3ffbf)
+- [Fix] treat partial accessor descriptors as valid [`43876e9`](https://github.com/inspect-js/is-accessor-descriptor/commit/43876e9fe785049005192b0618726fd68feabec6)
+- [Dev Deps] update `@ljharb/eslint-config`, `auto-changelog`, `eslint`, `npmignore`, `tape` [`6a4bbe1`](https://github.com/inspect-js/is-accessor-descriptor/commit/6a4bbe1b2c7c6a7d695f8793a319dc1644d77d78)
+- [Dev Deps] update `@ljharb/eslint-config`, `auto-changelog`, `eslint`, `has-property-descriptors`, `npmignore`, `tape` [`3f2b696`](https://github.com/inspect-js/is-accessor-descriptor/commit/3f2b696bdde01ea72009025b3c06cb05d2643144)
+- [Dev Deps] update `auto-changelog`, `eslint`, `evalmd`, `tape` [`153ad0f`](https://github.com/inspect-js/is-accessor-descriptor/commit/153ad0f6c69bb66e71e6ea62d11236165c462a6a)
+- [Dev Deps] update `@ljharb/eslint-config`, `auto-changelog` [`2a1e188`](https://github.com/inspect-js/is-accessor-descriptor/commit/2a1e1887f00a09bb454c92bea2edac54679c0e05)
+- [Deps] update `gopd`, `hasown` [`eec0795`](https://github.com/inspect-js/is-accessor-descriptor/commit/eec0795258bc049f5d59d4667e931ca38a3507fa)
+- [Dev Deps] update `eslint` [`1cca4ca`](https://github.com/inspect-js/is-accessor-descriptor/commit/1cca4ca4eb3bae23ba28cb025dde4bb105c6d43b)
+- [Deps] update `hasown` [`a934982`](https://github.com/inspect-js/is-accessor-descriptor/commit/a934982d74e3683159f066626404de8634489b9d)
+- Merge tag 'v1.0.2' [`8bc3726`](https://github.com/inspect-js/is-accessor-descriptor/commit/8bc3726547ec00aca4022f69a75f0d1b362b671f)
+- [meta] use `npm audit` instead of `aud` [`3f32351`](https://github.com/inspect-js/is-accessor-descriptor/commit/3f323515d49205509739fc0e4f2fd16043991564)
+- [meta] use `npm audit` instead of `aud` [`e0a9ccc`](https://github.com/inspect-js/is-accessor-descriptor/commit/e0a9ccc56668ace17d5347e1b67240033aeb50fa)
+- [Deps] update `hasown` [`b9870eb`](https://github.com/inspect-js/is-accessor-descriptor/commit/b9870eb2bdc9249ed7d717fb2b88a795d1a09e02)
+- [Deps] update `hasown` [`ff8ba09`](https://github.com/inspect-js/is-accessor-descriptor/commit/ff8ba092cb149020c9f231d7b7892dceb6e44165)
+- [meta] lower engines.node threshold [`4293ff7`](https://github.com/inspect-js/is-accessor-descriptor/commit/4293ff7bb43e68d39a4b831979eaf3a54ca7f4f8)
+- [readme] replace runkit CI badge with shields.io check-runs badge [`40b56ee`](https://github.com/inspect-js/is-accessor-descriptor/commit/40b56ee97ff4bd05255d5907c91f1a7aaca07fe2)
+
 ## [v3.0.5](https://github.com/inspect-js/is-accessor-descriptor/compare/v3.0.4...v3.0.5) - 2023-10-27
 
 ### Commits
