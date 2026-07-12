@@ -103,6 +103,17 @@ test('isAccessorDescriptor', function (t) {
 		st.end();
 	});
 
+	t.test('is true for a partial accessor descriptor with an accessor and one of enumerable/configurable', function (st) {
+		st.ok(isAccessorDescriptor({ get: noop, enumerable: true }), 'get + enumerable');
+		st.ok(isAccessorDescriptor({ get: noop, configurable: true }), 'get + configurable');
+		st.ok(isAccessorDescriptor({ set: noop, enumerable: true }), 'set + enumerable');
+		st.ok(isAccessorDescriptor({ set: noop, configurable: true }), 'set + configurable');
+		st.ok(isAccessorDescriptor({ get: noop, set: noop, enumerable: true }), 'get + set + enumerable');
+		st.ok(isAccessorDescriptor({ get: noop, set: noop, configurable: true }), 'get + set + configurable');
+
+		st.end();
+	});
+
 	t.test('is false when invalid properties are defined', function (st) {
 		st.notOk(isAccessorDescriptor({
 			enumerable: true,

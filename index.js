@@ -22,10 +22,8 @@ module.exports = function isAccessorDescriptor(obj, key, checkProto) {
 
 	var desc = obj;
 	if (
-		!hasOwn(desc, 'get')
-		|| !hasOwn(desc, 'set')
-		|| !hasOwn(desc, 'enumerable')
-		|| !hasOwn(desc, 'configurable')
+		(!hasOwn(desc, 'get') && !hasOwn(desc, 'set'))
+		|| (!hasOwn(desc, 'enumerable') && !hasOwn(desc, 'configurable'))
 	) {
 		return false;
 	}
